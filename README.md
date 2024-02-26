@@ -4,4 +4,4 @@ Normally, in a sudoku, you are given a 9x9 grid with some cells filled with numb
 
 The figure below depicts the initial incomplete grid and the grid with an accepted solution. Please note that this solution is unique (i.e., there is no other solution to the puzzle based on the described constrains). Furthermore, for this assignment, you are guaranteed that your solution will be tested against problems that have a unique solution.
 
-![Incomplete Grid](pic/incomplete-grid.jpg)![Solution Grid](pic/solution-grid.jpg)
+![Incomplete Grid](pic/incomplete-grid.jpg)|![Solution Grid](pic/solution-grid.jpg)
