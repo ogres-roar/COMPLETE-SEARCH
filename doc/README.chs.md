@@ -4,4 +4,4 @@
 
 下图展示了数独样例, 在初始情况下的数独以及在最终结果完成情况下的数独. 当然该问题有时无解(1x2 的格子分两个 1x1 的区域), 有时有多解( 1x4 的格子分 两个 1x2 的区域), 本问题只需要关注存在唯一解的数独, 只需要保证你的解就是那个唯一解即可.
 
-![Incomplete Grid](pic/incomplete-grid.jpg)  ![Solution Grid](pic/solution-grid.jpg)
+![Incomplete Grid](../pic/incomplete-grid.jpg)![Solution Grid](../pic/solution-grid.jpg)
