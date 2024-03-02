@@ -38,6 +38,8 @@ public:
     void setValue(int row, int column, int value);
     void setRegion(int index, Region initial_region);
     void setValues(vector<vector<int>> values);
+    int getRows();
+    int getColumns();
 
 private:
     vector<vector<int>> values_;

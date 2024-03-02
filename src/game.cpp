@@ -77,6 +77,16 @@ void Board::setValues(vector<vector<int>> values)
     values_ = values;
 }
 
+int Board::getRows()
+{
+    return num_rows_;
+}
+
+int Board::getColumns()
+{
+    return num_columns_;
+}
+
 vector<vector<int>> solver(Board board)
 {
     // Is suduku finished?
@@ -88,6 +98,80 @@ vector<vector<int>> solver(Board board)
         auto n = region.getCells().size();
         auto cell = region.getCells()[index];
         bool changable = board.getValue(cell.getRow(), cell.getColumn()) == -1;
+
+        function<void()> setValue;
+        setValue = [&]()
+        {
+            vector<bool> used(n, false);
+            for (int i = 0; i < n; i++)
+            {
+                auto rcell = region.getCells()[i];
+                auto value = board.getValue(rcell.getRow(), rcell.getColumn());
+                if (value != -1)
+                {
+                    used[value - 1] = true;
+                }
+            }
+
+            for (int num = 0; num < n; num++)
+            {
+                if (used[num])
+                {
+                    continue;
+                }
+                board.setValue(cell.getRow(), cell.getColumn(), num + 1);
+                used[num] = true;
+                for (int i = -1; i < 2; i++)
+                {
+                    for (int j = -1; j < 2; j++)
+                    {
+                        if (i == 0 && j == 0)
+                        {
+                            continue;
+                        }
+                        if (cell.getRow() + i < 0 || cell.getRow() + i >= board.getRows())
+                        {
+                            continue;
+                        }
+                        if (cell.getColumn() + j < 0 || cell.getColumn() + j >= board.getColumns())
+                        {
+                            continue;
+                        }
+                        if (board.getValue(cell.getRow(), cell.getColumn()) ==
+                            board.getValue(cell.getRow() + i, cell.getColumn() + j))
+                        {
+                            board.setValue(cell.getRow(), cell.getColumn(), -1);
+                            used[num] = false;
+                            break;
+                        }
+                    }
+                }
+
+                if (used[num])
+                {
+                    if (index < region.getCells().size() - 1)
+                    {
+                        dfs(region_num, index + 1);
+                    }
+                    else if (region_num < board.getRegions().size() - 1)
+                    {
+                        dfs(region_num + 1, 0);
+                    }
+                    else
+                    {
+                        finish = true;
+                        return;
+                    }
+                }
+                if (finish)
+                {
+                    return;
+                }
+                used[num] = false;
+                board.setValue(cell.getRow(), cell.getColumn(), -1);
+            }
+            return;
+        };
 
         if (!changable)
         {
@@ -107,71 +191,7 @@ vector<vector<int>> solver(Board board)
         }
         else
         {
-            vector<bool> used(false, n);
-            for (int i = 0; i < n; i++)
-            {
-                auto rcell = region.getCells()[i];
-                auto value = board.getValue(rcell.getRow(), rcell.getColumn());
-                if (value != -1)
-                {
-                    used[value - 1] = true;
-                }
-            }
-
-            for (int i = 0; i < n; i++)
-            {
-                if (!used[i])
-                {
-                    used[i] = true;
-                    board.setValue(cell.getRow(), cell.getColumn(), i + 1);
-                    for (int j = -1; j < 2; j++)
-                    {
-                        for (int k = -1; k < 2; k++)
-                        {
-                            if (k == 0 && j == 0)
-                            {
-                                continue;
-                            }
-                            if (cell.getRow() + j < 0 || cell.getRow() + j >= board.getValues().size())
-                            {
-                                continue;
-                            }
-                            if (cell.getColumn() + k < 0 || cell.getColumn() + k >= board.getValues()[0].size())
-                            {
-                                continue;
-                            }
-                            if (board.getValues()[cell.getRow()][cell.getColumn()] == board.getValues()[cell.getRow() + j][cell.getColumn() + k])
-                            {
-                                used[i] = false;
-                                board.setValue(cell.getRow(), cell.getColumn(), -1);
-                                return;
-                            }
-                        }
-                    }
-
-                    if (index < region.getCells().size() - 1)
-                    {
-                        dfs(region_num, index + 1);
-                    }
-                    else if (region_num < board.getRegions().size() - 1)
-                    {
-                        dfs(region_num + 1, 0);
-                    }
-                    else
-                    {
-                        finish = true;
-                        return;
-                    }
-
-                    if (finish)
-                    {
-                        return;
-                    }
-
-                    used[i] = false;
-                    board.setValue(cell.getRow(), cell.getColumn(), -1);
-                }
-            }
+            setValue();
         }
     };
     dfs(0, 0);
