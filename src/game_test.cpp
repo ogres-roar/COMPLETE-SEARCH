@@ -69,6 +69,7 @@ TEST(GameTest, test1)
     values[2][4] = 1;
 
     Board board(row, column, region_num);
+    board.setValues(values);
     vector<Region> regions = getRegions("1 (1,1)\n2 (1,2) (1,3)\n5 (2,1) (2,2) (3,1) (3,2) (3,3)\n4 (2,3) (2,4) (1,4) (1,5)\n3 (3,4) (3,5) (2,5)");
 
     for (int i = 0; i < regions.size(); i++)
@@ -99,6 +100,7 @@ TEST(GameTest, test2)
     values[3][3] = 3;
 
     Board board(row, column, region_num);
+    board.setValues(values);
     vector<Region> regions = getRegions("5 (1,1) (2,1) (3,1) (2,2) (2,3)\n4 (2,4) (1,2) (1,3) (1,4)\n2 (1,5) (1,6)\n1 (1,7)\n4 (4,1) (5,1) (6,1) (5,2)\n1 (7,1)\n4 (3,2) (4,2) (4,3) (5,3)\n3 (7,3) (7,2) (6,2)\n4 (6,3) (6,4) (7,4) (7,5)\n6 (2,5) (3,5) (4,5) (3,6) (2,6) (2,7)\n4 (3,7) (4,7) (4,6) (5,6)\n1 (5,7)\n5 (7,7) (7,6) (6,7) (6,6) (6,5)\n5 (3,3) (3,4) (4,4) (5,4) (5,5)");
 
     for (int i = 0; i < regions.size(); i++)
@@ -107,7 +109,7 @@ TEST(GameTest, test2)
     }
 
     auto answer = solver(board);
-    vector<vector<int>> res = getResult("5 1 2 1 2 1\n5 3 5 3 4 3\n5 4 2 1 2 1");
+    vector<vector<int>> res = getResult("7 3 1 4 2 1 2 1\n7 4 2 5 3 6 5 4\n7 1 3 1 4 2 3 1\n7 2 4 2 3 1 4 2\n7 1 3 1 5 2 3 1\n7 4 2 4 3 4 5 2\n7 1 3 1 2 1 3 1");
     for (int i = 0; i < res.size(); i++)
     {
         for (int j = 0; j < res[0].size(); j++)
@@ -126,6 +128,7 @@ TEST(GameTest, test3)
     auto values = getValues(row, column);
 
     Board board(row, column, region_num);
+    board.setValues(values);
     vector<Region> regions = getRegions("1 (1,1)");
 
     for (int i = 0; i < regions.size(); i++)

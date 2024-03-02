@@ -38,7 +38,7 @@ Board::Board(int num_rows, int num_columns, int num_regions)
     num_rows_ = num_rows;
     num_columns_ = num_columns;
     num_regions_ = num_regions;
-    values_ = vector<vector<int>>(num_rows, vector<int>(num_columns, 0));
+    values_ = vector<vector<int>>(num_rows, vector<int>(num_columns, -1));
     regions_ = vector<Region>(num_regions);
 }
 
