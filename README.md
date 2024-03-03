@@ -11,8 +11,4 @@ The figure below depicts the initial incomplete grid and the grid with an accept
 
 ## solution
 
-Using a depth-first algorithm, based on partitioning, it will try to fill in the appropriate numbers into the positions and recurse the process. When a contradiction occurs, it will backtrack until it finds the only solution that satisfies the rules of the game. The specific algorithm is shown in the video below.
-
-<video width="320" height="240" controls>
-    <source src="pic/suduku.mov" type="video/mp4">
-</video>
+Using a depth-first algorithm, based on partitioning, it will try to fill in the appropriate numbers into the positions and recurse the process. When a contradiction occurs, it will backtrack until it finds the only solution that satisfies the rules of the game. The specific algorithm is shown in the video[src/sudoku.mov].
