@@ -10,3 +10,9 @@
 --|--
 
 ## 解决方案
+
+使用深度优先算法, 基于分区, 将尝试将合适数字填入位置并递归该过程. 当出现矛盾便往前回溯直至找到唯一满足游戏规则的解. 具体算法示意如下视频所示.
+
+<video width="320" height="240" controls>
+    <source src="pic/suduku.mov" type="video/mp4">
+</video>
